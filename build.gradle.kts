@@ -21,14 +21,11 @@ dependencies {
     compile(kotlin("stdlib-jre8", kotlinVersion))
     compile(kotlin("reflect", kotlinVersion))
     compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinxCoroutinesVersion")
-    compile("org.jetbrains.kotlinx:kotlinx-html-jvm:0.6.6")
-    compile("com.google.code.gson:gson:2.8.2")
     compile("org.slf4j:slf4j-api:1.7.14")
     compile("ch.qos.logback:logback-classic:1.1.3")
-    compile("com.squareup.okhttp3:okhttp:3.9.1")
-    compile("no.tornado:tornadofx:1.7.14")
-    compile("no.tornado:tornadofx-controlsfx:0.1")
-    compile("com.google.inject:guice:4.1.0")
+    compile("net.sf.opencsv:opencsv:2.3")
+    compile("org.apache.hadoop:hadoop-core:1.2.1")
+
     testCompile(kotlin("test-junit", kotlinVersion))
     testCompile("junit:junit:4.11")
 }
@@ -36,9 +33,6 @@ dependencies {
 repositories {
     mavenCentral()
     jcenter()
-    maven {
-        setUrl("http://dl.bintray.com/kotlin/kotlinx.html/")
-    }
 }
 
 
