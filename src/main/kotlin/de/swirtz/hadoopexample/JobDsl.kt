@@ -27,6 +27,16 @@ class CreateJob(private val deleteOut: Boolean = false) {
     lateinit var inputPath: String
     lateinit var outputPath: String
 
+    inline fun <reified L, reified R> outputClasses(){
+        outputKeyKClass = L::class
+        outputKeyKClass = R::class
+    }
+
+    inline fun <reified L: Mapper<*, *, *, *>, reified R: Reducer<*,*,*,*>> mapreduceWith(){
+        mapperKClass = L::class
+        reducerKClass = R::class
+    }
+
     fun create(): Job = Job(JobConf(jarByKClass.java)).apply {
         FileInputFormat.addInputPath(this, Path(inputPath))
         FileOutputFormat.setOutputPath(this, Path(outputPath))

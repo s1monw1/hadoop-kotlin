@@ -33,11 +33,9 @@ class EarthquakeDataReduce : Reducer<Text, IntWritable, Text, IntWritable>() {
 fun main(args: Array<String>) {
     awaitJob(verbose = true, removeOutDir = true) {
         jarByKClass = EarthquakeDataMapper::class
-        mapperKClass = EarthquakeDataMapper::class
-        reducerKClass = EarthquakeDataReduce::class
+        mapreduceWith<EarthquakeDataMapper, EarthquakeDataReduce>()
         //output like this: '2018-01-24	246'
-        outputKeyKClass = Text::class
-        outputValueKClass = IntWritable::class
+        outputClasses<Text, IntWritable>()
         inputPath = "src/main/resources/in.csv"
         outputPath = "src/main/resources/out"
     }
