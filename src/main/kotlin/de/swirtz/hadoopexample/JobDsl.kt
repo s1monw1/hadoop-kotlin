@@ -27,12 +27,12 @@ class CreateJob(private val deleteOut: Boolean = false) {
     lateinit var inputPath: String
     lateinit var outputPath: String
 
-    inline fun <reified L, reified R> outputClasses(){
+    inline fun <reified L, reified R> outputClasses() {
         outputKeyKClass = L::class
-        outputKeyKClass = R::class
+        outputValueKClass = R::class
     }
 
-    inline fun <reified L: Mapper<*, *, *, *>, reified R: Reducer<*,*,*,*>> mapreduceWith(){
+    inline fun <reified L : Mapper<*, *, *, *>, reified R : Reducer<*, *, *, *>> mapreduceWith() {
         mapperKClass = L::class
         reducerKClass = R::class
     }
@@ -47,9 +47,13 @@ class CreateJob(private val deleteOut: Boolean = false) {
         FileInputFormat.addInputPath(this, Path(inputPath))
         FileOutputFormat.setOutputPath(this, Path(outputPath))
         if (deleteOut) {
-            val path = Paths.get(outputPath)
-            Files.list(path).forEach { Files.deleteIfExists(it) }
-            Files.deleteIfExists(path)
+            Paths.get(outputPath).let {
+                if (Files.exists(it)) {
+                    Files.list(it).forEach { Files.deleteIfExists(it) }
+                    Files.deleteIfExists(it)
+                }
+            }
+
         }
     }
 
